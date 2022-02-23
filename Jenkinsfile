@@ -37,21 +37,6 @@ pipeline {
                sh "mvn clean test"
             }
         }
-        stage("Check Code coverage") {
-            when {
-                branch 'develop'
-            }
-            steps {
-               jacoco(
-                    execPattern: '**/target/**.exec',
-                    classPattern: '**/target/classes',
-                    sourcePattern: '**/src',
-                    inclusionPattern: 'com/iamvickyav/**',
-                    changeBuildStatus: true,
-                    minimumInstructionCoverage: '30',
-                    maximumInstructionCoverage: '80')
-           }
-        }
         stage("Build & Deploy Code") {
             when {
                 branch 'master'
